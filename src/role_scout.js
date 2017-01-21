@@ -97,7 +97,8 @@ roles.scout.execute = function(creep) {
         }
       );
     } catch (e) {
-      creep.log(`search: ${targetPosObject} ${e}`);
+      creep.log(`search: ${targetPosObject} ${e} ${e.stack}`);
+
       // creep.memory.search.seen.push(creep.memory.search.target);
       // // TODO extract to a method
       // if (!setNewTarget(creep)) {
