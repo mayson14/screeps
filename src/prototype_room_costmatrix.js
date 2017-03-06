@@ -3,14 +3,12 @@
 Room.prototype.getCostMatrixCallback = function(end, excludeStructures) {
   let costMatrix = this.getMemoryCostMatrix();
   if (!costMatrix) {
-    this.log('getCostMatrixCallback updatePosition: ' + JSON.stringify(costMatrix));
     this.updatePosition();
-    // this.log('costmatrix: ' + JSON.stringify(this.getMemoryCostMatrix()));
   }
 
   let room = this;
-  let callbackInner = function(roomName) {
-    let costMatrix = room.getMemoryCostMatrix();
+  let callbackInner = (roomName) => {
+    let costMatrix = room.getMemoryCostMatrix().clone();
     // TODO the ramparts could be within existing walls (at least when converging to the newmovesim
     if (end) {
       costMatrix.set(end.x, end.y, 0);
@@ -18,20 +16,7 @@ Room.prototype.getCostMatrixCallback = function(end, excludeStructures) {
 
     if (excludeStructures) {
       // TODO excluding structures, for the case where the spawn is in the wrong spot (I guess this can be handled better)
-      let structures = room.find(FIND_STRUCTURES, {
-        filter: function(object) {
-          if (object.structureType == STRUCTURE_RAMPART) {
-            return false;
-          }
-          if (object.structureType == STRUCTURE_ROAD) {
-            return false;
-          }
-          if (object.structureType == STRUCTURE_CONTAINER) {
-            return false;
-          }
-          return true;
-        }
-      });
+      let structures = room.findPropertyFilter(FIND_STRUCTURES, 'structureType', [STRUCTURE_RAMPART, STRUCTURE_ROAD, STRUCTURE_CONTAINER], true);
       for (let structure of structures) {
         costMatrix.set(structure.pos.x, structure.pos.y, config.layout.structureAvoid);
       }
@@ -86,7 +71,6 @@ Room.prototype.getAvoids = function(target, inRoom) {
 
   let room = this;
   let callback = (roomName) => {
-    let costMatrix = PathFinder.CostMatrix.deserialize(room.memory.costMatrix.base);
     if (target && target.pos) {
       costMatrix.set(target.pos.x, target.pos.y, 0);
     }
@@ -99,7 +83,7 @@ Room.prototype.getAvoids = function(target, inRoom) {
     // Noobie walls
     let walls = room.find(FIND_STRUCTURES, {
       filter: function(object) {
-        if (object.structureType == STRUCTURE_WALL && !object.hits) {
+        if (object.structureType === STRUCTURE_WALL && !object.hits) {
           return true;
         }
         return false;
@@ -112,7 +96,7 @@ Room.prototype.getAvoids = function(target, inRoom) {
     if (target && target.scout) {
       let structures = room.find(FIND_STRUCTURES, {
         filter: function(object) {
-          if (object.structureType == STRUCTURE_WALL) {
+          if (object.structureType === STRUCTURE_WALL) {
             return true;
           }
           return false;

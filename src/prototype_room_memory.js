@@ -17,11 +17,9 @@
  */
 Room.prototype.setMemoryCostMatrix = function(costMatrix) {
   if (!cache.rooms[this.name]) {
-    this.log('Set No cache');
     cache.rooms[this.name] = {};
   }
   if (!cache.rooms[this.name].costMatrix) {
-    this.log('Set No costMatrix');
     cache.rooms[this.name].costMatrix = {};
   }
   if (this.controller && this.controller.my) {
