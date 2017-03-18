@@ -44,20 +44,7 @@ Creep.prototype.attackHostile = function(hostile) {
     return this.fleeFromHostile(hostile);
   }
 
-  let search = PathFinder.search(
-    this.pos, {
-      pos: hostile.pos,
-      range: 0
-    }, {
-      roomCallback: this.room.getAvoids(this.room, {}, true),
-      maxRooms: 0
-    }
-  );
-
-  if (search.incomplete) {
-    this.moveRandom();
-  }
-  let returnCode = this.move(this.pos.getDirectionTo(search.path[0]));
+  let returnCode = this.moveToMy(hostile.pos);
   this.rangedAttack(hostile);
   return true;
 
