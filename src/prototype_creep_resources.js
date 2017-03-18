@@ -682,11 +682,11 @@ Creep.prototype.transferEnergyMy = function() {
     }
     delete this.memory.target;
   } else {
-    let returnCode = this.moveToMy(target.pos);
+    let returnCode = this.moveToMy(target.pos, 1);
     if (returnCode === false) {
       this.say('tr:incompl', true);
       if (config.path.pathfindIncomplete) {
-        this.moveTo(target.pos, 1);
+        this.moveTo(target.pos);
         return true;
       }
     }

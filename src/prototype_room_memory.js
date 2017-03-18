@@ -41,7 +41,6 @@ Room.prototype.setMemoryCostMatrix = function(costMatrix) {
  */
 Room.prototype.getMemoryCostMatrix = function() {
   if (!cache.rooms[this.name]) {
-    this.log('No cache');
     cache.rooms[this.name] = {};
   }
   if (!cache.rooms[this.name].costMatrix) {
