@@ -185,7 +185,7 @@ Creep.prototype.fightRampart = function(target) {
     return false;
   }
   let returnCode = this.moveToMy(position.pos);
-  if (returnCode == OK) {
+  if (returnCode === OK) {
     return true;
   }
   if (returnCode === ERR_TIRED) {
@@ -235,7 +235,7 @@ Creep.prototype.fightRanged = function(target) {
   }
 
   let returnCode = this.moveToMy(target.pos, 3);
-  if (returnCode == OK) {
+  if (returnCode === OK) {
     return true;
   }
   if (returnCode === ERR_TIRED) {

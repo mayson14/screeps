@@ -121,7 +121,7 @@ Room.prototype.checkRoleToSpawn = function(role, amount, targetId, targetRoom, l
     return false;
   }
   if (this.inQueue(creepMemory) || this.inRoom(creepMemory, amount)) { return false; }
-  if (role == 'harvester') {
+  if (role === 'harvester') {
     this.log(`checkRoleToSpawn: ${amount} ${this.inQueue(creepMemory)} ${this.inRoom(creepMemory, amount)}`);
   }
 

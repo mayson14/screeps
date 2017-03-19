@@ -554,7 +554,7 @@ Creep.prototype.boost = function() {
             if (labs.length > 0) {
               let returnCode = this.moveToMy(labs[0].pos, 1);
               returnCode = labs[0].boostCreep(this);
-              if (returnCode == OK) {
+              if (returnCode === OK) {
                 let room = Game.rooms[this.room.name];
                 delete room.memory.boosting[boost][this.id];
               }

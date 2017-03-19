@@ -113,7 +113,7 @@ Creep.prototype.handleExtractor = function() {
     return true;
   }
   let carrying = _.sum(this.carry);
-  if (carrying == this.carryCapacity) {
+  if (carrying === this.carryCapacity) {
     let returnCode = this.moveToMy(this.room.terminal.pos, 1);
     for (let key in this.carry) {
       if (this.carry[key] === 0) {
